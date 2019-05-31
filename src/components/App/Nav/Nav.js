@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import { Login, Register, useAuthState } from "@adamite/react";
 import { withRouter, Switch, Route } from "react-router-dom";
 import { Button, Tooltip, Position } from "@blueprintjs/core";
 import SectionHeading from "../../Headings/SectionHeading";
 import DatabaseSubNav from "./DatabaseSubNav";
 import classNames from "classnames";
 import "./Nav.scss";
+import adamite from "@adamite/sdk";
 
 function RootNavItem({ icon, label, active, onClick }) {
   return (
-    <Tooltip content={label} position={Position.RIGHT} hoverOpenDelay={800}>
+    <Tooltip content={label} position={Position.LEFT} hoverOpenDelay={800}>
       <Button large minimal icon={icon} onClick={onClick} className={classNames({ active })} />
     </Tooltip>
   );
@@ -16,6 +18,9 @@ function RootNavItem({ icon, label, active, onClick }) {
 
 function Nav({ history, match }) {
   const [sidebarHidden, setSidebarHidden] = useState(false);
+  const [loginVisible, setLoginVisible] = useState(false);
+  const { user } = useAuthState();
+  const [createAccountVisible, setCreateAccountVisible] = useState(false);
 
   const showSidebar = () => {
     setSidebarHidden(false);
@@ -28,53 +33,85 @@ function Nav({ history, match }) {
   };
 
   return (
-    <nav className="nav">
-      <div className="app-info">
-        <div className="app-icon">YA</div>
-        <div className="app-details">
-          <SectionHeading
-            title="Your App"
-            parentTitle="Adamite"
-            parentTitleLink="/"
-            actions={!sidebarHidden && <Button icon="chevron-left" minimal onClick={hideSidebar} />}
-          />
-        </div>
-      </div>
+    <>
+      <Login
+        isOpen={loginVisible}
+        onCreateAccountClick={() => {
+          setLoginVisible(false);
+          setCreateAccountVisible(true);
+        }}
+        onClose={() => setLoginVisible(false)}
+      />
 
-      <div className="navigation flex">
-        <div className="root-nav">
-          <RootNavItem
-            icon="database"
-            label="Database"
-            onClick={() => history.push("/database")}
-            active={window.location.pathname.indexOf("/database") > -1}
-          />
-          <RootNavItem
-            icon="people"
-            label="Users"
-            onClick={() => history.push("/users")}
-            active={window.location.pathname.indexOf("/users") > -1}
-          />
-          <RootNavItem
-            icon="function"
-            label="Functions"
-            onClick={() => history.push("/functions")}
-            active={window.location.pathname.indexOf("/functions") > -1}
-          />
+      <Register
+        isOpen={createAccountVisible}
+        onSignInClick={() => {
+          setCreateAccountVisible(false);
+          setLoginVisible(true);
+        }}
+        onClose={() => setCreateAccountVisible(false)}
+      />
+
+      <nav className="nav">
+        <div className="app-info">
+          <div className="app-icon">YA</div>
+          <div className="app-details">
+            <SectionHeading
+              title="Your App"
+              parentTitle="Adamite"
+              parentTitleLink="/"
+              actions={!sidebarHidden && <Button icon="chevron-left" minimal onClick={hideSidebar} />}
+            />
+          </div>
         </div>
 
-        <Switch>
-          <Route path="/database" component={DatabaseSubNav} />
-        </Switch>
-      </div>
+        <div className="navigation flex">
+          <div className="root-nav">
+            <RootNavItem
+              icon="database"
+              label="Database"
+              onClick={() => history.push("/database")}
+              active={window.location.pathname.indexOf("/database") > -1}
+            />
+            <RootNavItem
+              icon="people"
+              label="Users"
+              onClick={() => history.push("/users")}
+              active={window.location.pathname.indexOf("/users") > -1}
+            />
+            <RootNavItem
+              icon="function"
+              label="Functions"
+              onClick={() => history.push("/functions")}
+              active={window.location.pathname.indexOf("/functions") > -1}
+            />
+          </div>
 
-      <div className="navigation">
-        <div className="root-nav">
-          {sidebarHidden && <RootNavItem icon="chevron-right" label="Open Sidebar" onClick={showSidebar} />}
-          <RootNavItem icon="help" label="Help" onClick={() => history.push("/help")} />
+          <Switch>
+            <Route path="/database" component={DatabaseSubNav} />
+          </Switch>
         </div>
-      </div>
-    </nav>
+
+        <div className="navigation">
+          <div className="root-nav">
+            {sidebarHidden && <RootNavItem icon="chevron-right" label="Open Sidebar" onClick={showSidebar} />}
+            {!user && <RootNavItem icon="log-in" label="Login as User" onClick={() => setLoginVisible(true)} />}
+            {user && (
+              <RootNavItem
+                icon="log-out"
+                label={`Logged in as ${user.email}`}
+                onClick={() =>
+                  adamite()
+                    .auth()
+                    .logout()
+                }
+              />
+            )}
+            <RootNavItem icon="help" label="Help" onClick={() => history.push("/help")} />
+          </div>
+        </div>
+      </nav>
+    </>
   );
 }
 

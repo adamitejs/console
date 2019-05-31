@@ -10,10 +10,10 @@ adamite()
   .use(DatabasePlugin)
   .use(AuthPlugin)
   .initializeApp({
-    apiKey: "NzgwNjBkZGItNjcwYS00NDMyLThjYjEtZWNlOWNiMTViMGNh",
-    apiUrl: "http://localhost:9000",
-    databaseUrl: "http://localhost:9001",
-    authUrl: "http://localhost:9002"
+    apiKey: process.env.REACT_APP_API_KEY,
+    apiUrl: process.env.REACT_APP_API_URL,
+    databaseUrl: process.env.REACT_APP_DATABASE_URL,
+    authUrl: process.env.REACT_APP_AUTH_URL
   });
 
 // make adamite available globally for debugging
