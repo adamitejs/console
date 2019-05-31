@@ -16,18 +16,16 @@
       flex: 1;
       margin: 0 24px;
 
-      h3,
-      h5 {
+      .section-heading {
         margin: 0;
-      }
 
-      h5 {
-        margin: 3px 0 0 0;
-        opacity: 0.35;
-        text-transform: uppercase;
-        font-weight: 500;
-        font-size: 11px;
-        letter-spacing: 0.5px;
+        h1 {
+          color: #fff;
+        }
+
+        h2 {
+          opacity: 0.37;
+        }
       }
     }
 

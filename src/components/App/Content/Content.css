@@ -4,5 +4,11 @@ main.content {
   background-color: #fff;
   border-radius: 5px 0 0 5px;
   overflow-y: auto;
+  z-index: 1;
   -webkit-overflow-scrolling: touch;
+  transition: margin-left 250ms ease-in-out;
+}
+
+.sidebar-hidden main.content {
+  margin-left: -235px;
 }

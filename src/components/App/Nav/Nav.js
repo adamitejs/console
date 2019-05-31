@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { Button, Tooltip, Position, MenuDivider } from "@blueprintjs/core";
+import SectionHeading from "../../Headings/SectionHeading";
 import SubNavItem from "./SubNavItem";
 import "./Nav.scss";
 
@@ -13,13 +14,29 @@ function RootNavItem({ icon, label, onClick }) {
 }
 
 function Nav({ history }) {
+  const [sidebarHidden, setSidebarHidden] = useState(false);
+
+  const showSidebar = () => {
+    setSidebarHidden(false);
+    document.body.classList.remove("sidebar-hidden");
+  };
+
+  const hideSidebar = () => {
+    setSidebarHidden(true);
+    document.body.classList.add("sidebar-hidden");
+  };
+
   return (
     <nav className="nav">
       <div className="app-info">
         <div className="app-icon">YA</div>
         <div className="app-details">
-          <h3>Your App</h3>
-          <h5>Adamite</h5>
+          <SectionHeading
+            title="Your App"
+            parentTitle="Adamite"
+            parentTitleLink="/"
+            actions={!sidebarHidden && <Button icon="chevron-left" minimal onClick={hideSidebar} />}
+          />
         </div>
       </div>
 
@@ -42,6 +59,7 @@ function Nav({ history }) {
 
       <div className="navigation">
         <div className="root-nav">
+          {sidebarHidden && <RootNavItem icon="chevron-right" label="Open Sidebar" onClick={showSidebar} />}
           <RootNavItem icon="help" label="Help" onClick={() => history.push("/help")} />
         </div>
       </div>
