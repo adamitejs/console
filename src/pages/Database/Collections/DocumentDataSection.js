@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Intent, Popover, Menu, ButtonGroup, Position, Tooltip } from "@blueprintjs/core";
+import React from "react";
+import { Button, Intent, Popover, Menu, Position, Tooltip } from "@blueprintjs/core";
 import Toaster from "../../../components/Toaster";
 import Section from "../../../components/Section";
 import SectionHeading from "../../../components/Headings/SectionHeading";
@@ -50,6 +50,13 @@ function DocumentDataSection({ match, history }) {
     }
   };
 
+  const copyRefToClipboard = () => {
+    navigator.clipboard.writeText(
+      `adamite().database().collection('${match.params.collection}').doc('${match.params.document}')`
+    );
+    Toaster.show({ message: "Copied collection reference to clipboard.", icon: "tick" });
+  };
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(
       `${window.location.origin}/collections/${match.params.collection}/${match.params.document}`
@@ -57,8 +64,14 @@ function DocumentDataSection({ match, history }) {
     Toaster.show({ message: "Copied document link to clipboard.", icon: "tick" });
   };
 
+  const copyRefButton = (
+    <Tooltip content="Copy Reference to Clipboard">
+      <Button icon="slash" onClick={copyRefToClipboard} minimal />
+    </Tooltip>
+  );
+
   const copyButton = (
-    <Tooltip content="Copy to Clipboard">
+    <Tooltip content="Copy Link to Clipboard">
       <Button icon="clipboard" onClick={copyToClipboard} minimal />
     </Tooltip>
   );
@@ -97,6 +110,7 @@ function DocumentDataSection({ match, history }) {
           parentTitleLink={`/database/collections/${match.params.collection}`}
           actions={
             <>
+              {copyRefButton}
               {copyButton}
               {deleteButton}
             </>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { withRouter, Route } from "react-router-dom";
 import Toaster from "../../../components/Toaster";
 import Section from "../../../components/Section";
@@ -12,8 +12,6 @@ import { useReference } from "@adamite/react";
 import "./DocumentsSection.scss";
 
 function DocumentsSection({ history, match }) {
-  const [collectionName, setCollectionName] = useState(match.params.collection);
-
   const { loading, value } = useReference(
     adamite()
       .database()
@@ -37,13 +35,24 @@ function DocumentsSection({ history, match }) {
     }
   };
 
+  const copyRefToClipboard = () => {
+    navigator.clipboard.writeText(`adamite().database().collection('${match.params.collection}')`);
+    Toaster.show({ message: "Copied collection reference to clipboard.", icon: "tick" });
+  };
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(`${window.location.origin}/collections/${match.params.collection}`);
     Toaster.show({ message: "Copied collection link to clipboard.", icon: "tick" });
   };
 
+  const copyRefButton = (
+    <Tooltip content="Copy Reference to Clipboard">
+      <Button icon="slash" onClick={copyRefToClipboard} minimal />
+    </Tooltip>
+  );
+
   const copyButton = (
-    <Tooltip content="Copy to Clipboard">
+    <Tooltip content="Copy Link to Clipboard">
       <Button icon="clipboard" onClick={copyToClipboard} minimal />
     </Tooltip>
   );
@@ -67,12 +76,13 @@ function DocumentsSection({ history, match }) {
     <>
       <Section className="documents">
         <SectionHeading
-          title={collectionName}
+          title={match.params.collection}
           parentTitle="Collections"
           titleLink={`/database/collections/${match.params.collection}`}
           parentTitleLink="/database/collections"
           actions={
             <>
+              {copyRefButton}
               {copyButton}
               <Button icon="plus" minimal onClick={createDocument} />
             </>

@@ -16,6 +16,9 @@ adamite()
     authUrl: "http://localhost:9002"
   });
 
+// make adamite available globally for debugging
+global.adamite = adamite;
+
 function App() {
   FocusStyleManager.onlyShowFocusOnTabs();
 
