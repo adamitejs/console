@@ -7,6 +7,7 @@ import DatabaseSubNav from "./DatabaseSubNav";
 import classNames from "classnames";
 import "./Nav.scss";
 import adamite from "@adamite/sdk";
+import AuthSubNav from "./AuthSubNav";
 
 function RootNavItem({ icon, label, active, onClick }) {
   return (
@@ -75,9 +76,9 @@ function Nav({ history, match }) {
             />
             <RootNavItem
               icon="people"
-              label="Users"
-              onClick={() => history.push("/users")}
-              active={window.location.pathname.indexOf("/users") > -1}
+              label="Authentication"
+              onClick={() => history.push("/auth")}
+              active={window.location.pathname.indexOf("/auth") > -1}
             />
             <RootNavItem
               icon="function"
@@ -89,6 +90,7 @@ function Nav({ history, match }) {
 
           <Switch>
             <Route path="/database" component={DatabaseSubNav} />
+            <Route path="/auth" component={AuthSubNav} />
           </Switch>
         </div>
 
