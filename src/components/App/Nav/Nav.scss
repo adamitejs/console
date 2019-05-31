@@ -72,6 +72,16 @@
         border-top: 2px solid rgba(255, 255, 255, 0.15);
         margin: 15px;
       }
+
+      .sub-nav-item {
+        &.bp3-active {
+          color: #fff;
+
+          span {
+            color: #fff;
+          }
+        }
+      }
     }
   }
 }

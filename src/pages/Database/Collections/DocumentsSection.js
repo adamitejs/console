@@ -86,6 +86,9 @@ function DocumentsSection({ history, match }) {
               label={doc.id}
               monospace
               onClick={() => history.push(`/database/collections/${match.params.collection}/${doc.id}`)}
+              active={
+                window.location.pathname.indexOf(`/database/collections/${match.params.collection}/${doc.id}`) > -1
+              }
             />
           ))}
         </ScrollView>

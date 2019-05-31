@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
-import { Button, Tooltip, Position, MenuDivider } from "@blueprintjs/core";
+import { withRouter, Switch, Route } from "react-router-dom";
+import { Button, Tooltip, Position } from "@blueprintjs/core";
 import SectionHeading from "../../Headings/SectionHeading";
-import SubNavItem from "./SubNavItem";
+import DatabaseSubNav from "./DatabaseSubNav";
+import classNames from "classnames";
 import "./Nav.scss";
 
-function RootNavItem({ icon, label, onClick }) {
+function RootNavItem({ icon, label, active, onClick }) {
   return (
     <Tooltip content={label} position={Position.RIGHT} hoverOpenDelay={800}>
-      <Button large minimal icon={icon} onClick={onClick} />
+      <Button large minimal icon={icon} onClick={onClick} className={classNames({ active })} />
     </Tooltip>
   );
 }
 
-function Nav({ history }) {
+function Nav({ history, match }) {
   const [sidebarHidden, setSidebarHidden] = useState(false);
 
   const showSidebar = () => {
@@ -42,19 +43,29 @@ function Nav({ history }) {
 
       <div className="navigation flex">
         <div className="root-nav">
-          <RootNavItem icon="database" label="Database" onClick={() => history.push("/database")} />
-          <RootNavItem icon="people" label="Users" onClick={() => history.push("/users")} />
-          <RootNavItem icon="function" label="Functions" onClick={() => history.push("/functions")} />
+          <RootNavItem
+            icon="database"
+            label="Database"
+            onClick={() => history.push("/database")}
+            active={window.location.pathname.indexOf("/database") > -1}
+          />
+          <RootNavItem
+            icon="people"
+            label="Users"
+            onClick={() => history.push("/users")}
+            active={window.location.pathname.indexOf("/users") > -1}
+          />
+          <RootNavItem
+            icon="function"
+            label="Functions"
+            onClick={() => history.push("/functions")}
+            active={window.location.pathname.indexOf("/functions") > -1}
+          />
         </div>
 
-        <div className="sub-nav">
-          <SubNavItem icon="folder-close" label="Collections" onClick={() => history.push("/database/collections")} />
-          <SubNavItem icon="lock" label="Rules" onClick={() => history.push("/database/rules")} />
-          <SubNavItem icon="vertical-bar-chart-asc" label="Usage" onClick={() => history.push("/database/usage")} />
-          <MenuDivider />
-          <SubNavItem icon="share" label="RethinkDB" />
-          <SubNavItem icon="settings" label="Settings" onClick={() => history.push("/database/settings")} />
-        </div>
+        <Switch>
+          <Route path="/database" component={DatabaseSubNav} />
+        </Switch>
       </div>
 
       <div className="navigation">

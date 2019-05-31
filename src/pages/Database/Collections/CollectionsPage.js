@@ -47,6 +47,7 @@ function CollectionsPage({ history }) {
             icon="folder-close"
             monospace
             onClick={() => history.push(`/database/collections/${collection}`)}
+            active={window.location.pathname.indexOf(`/database/collections/${collection}`) > -1}
           />
         ))}
       </Section>
