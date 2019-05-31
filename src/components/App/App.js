@@ -10,6 +10,7 @@ adamite()
   .use(DatabasePlugin)
   .use(AuthPlugin)
   .initializeApp({
+    secret: process.env.REACT_APP_SECRET,
     apiKey: process.env.REACT_APP_API_KEY,
     apiUrl: process.env.REACT_APP_API_URL,
     databaseUrl: process.env.REACT_APP_DATABASE_URL,
