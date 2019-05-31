@@ -1,0 +1,8 @@
+.section {
+  padding: 15px;
+  border-right: 1px solid #e6ecf1;
+
+  &.darkened {
+    background-color: #f5f7f9;
+  }
+}

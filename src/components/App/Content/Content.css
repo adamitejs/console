@@ -1,0 +1,8 @@
+main.content {
+  grid-area: content;
+  display: flex;
+  background-color: #fff;
+  border-radius: 5px 0 0 5px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}

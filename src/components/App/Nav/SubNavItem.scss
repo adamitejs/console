@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css?family=Overpass+Mono&display=swap");
+
+.bp3-button.sub-nav-item {
+  justify-content: flex-start;
+  color: #5c7080 !important;
+
+  .bp3-button-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &.monospace {
+    font-family: "Overpass Mono", monospace;
+  }
+
+  &.active {
+    color: #fff;
+
+    span {
+      color: #fff;
+    }
+  }
+
+  &:hover {
+    color: #5c7080;
+  }
+}

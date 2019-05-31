@@ -1,0 +1,13 @@
+.document-data {
+  flex: 1;
+  pre {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #e6ecf1;
+    code {
+      color: #292929;
+      font-family: "Overpass Mono", monospace;
+      line-height: 30px;
+    }
+  }
+}
