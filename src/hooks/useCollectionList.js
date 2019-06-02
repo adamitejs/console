@@ -5,17 +5,17 @@ function useCollectionList() {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadCollections = async () => {
-      const admin = new DatabaseAdmin(adamite().database());
-      setCollections(await admin.getCollections());
-      setLoading(false);
-    };
+  const refresh = async () => {
+    const admin = new DatabaseAdmin(adamite().database());
+    setCollections(await admin.getCollections());
+    setLoading(false);
+  };
 
-    loadCollections();
+  useEffect(() => {
+    refresh();
   }, []);
 
-  return { loading, collections };
+  return { loading, collections, refresh };
 }
 
 export default useCollectionList;

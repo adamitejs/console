@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, withRouter } from "react-router-dom";
 import { Content, SubNavItem } from "../../../components/App";
 import SectionHeading from "../../../components/Headings/SectionHeading";
 import Section from "../../../components/Section";
 import useCollectionList from "../../../hooks/useCollectionList";
 import { Button, Classes } from "@blueprintjs/core";
-import "./CollectionsPage.scss";
 import DocumentsSection from "./DocumentsSection";
+import CreateCollectionDialog from "./CreateCollectionDialog";
+import "./CollectionsPage.scss";
+import adamite from "@adamite/sdk";
 
 function CollectionsPage({ history }) {
-  const { loading, collections } = useCollectionList();
+  const [addCollectionOpen, setAddCollectionOpen] = useState(false);
+  const { loading, collections, refresh } = useCollectionList();
+
+  const createCollection = async ({ collectionName, initialDocument }) => {
+    const { id } = await adamite()
+      .database()
+      .collection(collectionName)
+      .create(initialDocument);
+
+    refresh();
+    history.push(`/database/collections/${collectionName}/${id}`);
+  };
 
   if (loading) {
     return (
@@ -31,29 +44,38 @@ function CollectionsPage({ history }) {
   }
 
   return (
-    <Content>
-      <Section className="collections" darkened>
-        <SectionHeading
-          title="Collections"
-          parentTitle="Database"
-          titleLink="/database/collections"
-          parentTitleLink="/database"
-        />
+    <>
+      <CreateCollectionDialog
+        isOpen={addCollectionOpen}
+        onClose={() => setAddCollectionOpen(false)}
+        onSubmit={createCollection}
+      />
 
-        {collections.map(collection => (
-          <SubNavItem
-            key={collection}
-            label={collection}
-            icon="folder-close"
-            monospace
-            onClick={() => history.push(`/database/collections/${collection}`)}
-            active={window.location.pathname.indexOf(`/database/collections/${collection}`) > -1}
+      <Content>
+        <Section className="collections" darkened>
+          <SectionHeading
+            title="Collections"
+            parentTitle="Database"
+            titleLink="/database/collections"
+            parentTitleLink="/database"
+            actions={<Button icon="plus" minimal onClick={() => setAddCollectionOpen(true)} />}
           />
-        ))}
-      </Section>
 
-      <Route path="/database/collections/:collection" component={DocumentsSection} />
-    </Content>
+          {collections.map(collection => (
+            <SubNavItem
+              key={collection}
+              label={collection}
+              icon="folder-close"
+              monospace
+              onClick={() => history.push(`/database/collections/${collection}`)}
+              active={window.location.pathname.indexOf(`/database/collections/${collection}`) > -1}
+            />
+          ))}
+        </Section>
+
+        <Route path="/database/collections/:collection" component={DocumentsSection} />
+      </Content>
+    </>
   );
 }
 
