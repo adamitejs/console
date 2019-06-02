@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import { Content, SubNavItem } from "../../../components/App";
 import SectionHeading from "../../../components/Headings/SectionHeading";
 import Section from "../../../components/Section";
@@ -8,6 +8,7 @@ import ScrollView from "../../../components/ScrollView";
 import { Button } from "@blueprintjs/core";
 import CreateUserDialog from "./CreateUserDialog";
 import adamite from "@adamite/sdk";
+import UserDataSection from "./UserDataSection";
 
 function UsersPage({ history }) {
   const [addUserOpen, setAddUserOpen] = useState(false);
@@ -16,7 +17,7 @@ function UsersPage({ history }) {
   const createUser = async ({ email, password }) => {
     await adamite()
       .auth()
-      .createUser(email, password);
+      .createUser(email, password, null, true);
     refresh();
   };
 
@@ -50,11 +51,14 @@ function UsersPage({ history }) {
                 label={u.email}
                 icon="user"
                 onClick={() => history.push(`/auth/users/${u.id}`)}
+                active={window.location.pathname.indexOf(`/auth/users/${u.id}`) > -1}
                 monospace
               />
             ))}
           </ScrollView>
         </Section>
+
+        <Route render={props => <UserDataSection {...props} onRefresh={refresh} />} path="/auth/users/:user" />
       </Content>
     </>
   );

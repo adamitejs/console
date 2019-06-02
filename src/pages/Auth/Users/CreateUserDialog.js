@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Dialog, Classes, FormGroup, InputGroup, Button, Intent } from "@blueprintjs/core";
-import ReactJson from "react-json-view";
 
 function CreateUserDialog({ isOpen, onClose, onSubmit }) {
   const [email, setEmail] = useState("");

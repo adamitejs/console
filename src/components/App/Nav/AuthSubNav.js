@@ -12,6 +12,15 @@ function AuthSubNav({ history }) {
         onClick={() => history.push("/auth/users")}
         active={window.location.pathname.indexOf("/auth/users") > -1}
       />
+
+      <MenuDivider />
+
+      <SubNavItem
+        icon="settings"
+        label="Settings"
+        onClick={() => history.push("/auth/settings")}
+        active={window.location.pathname.indexOf("/auth/settings") > -1}
+      />
     </div>
   );
 }
