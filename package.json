@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@adamite/react": "^0.1.0",
-    "@adamite/sdk": "^0.1.0",
+    "@adamite/react": "^0.1.0-beta.0",
+    "@adamite/sdk": "^0.1.0-beta.0",
     "@blueprintjs/core": "^3.15.1",
     "@blueprintjs/icons": "^3.9.0",
     "classnames": "^2.2.6",

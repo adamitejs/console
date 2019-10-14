@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@adamite/react@^0.1.0":
+"@adamite/react@^0.1.0-beta.0":
   version "0.1.0-beta.0"
   resolved "https://registry.yarnpkg.com/@adamite/react/-/react-0.1.0-beta.0.tgz#3dc5fe2482c31d6f9527c01bb18db3b32b6c9995"
   integrity sha512-cr4wm6aK9NXLBFAVQAkh4TkEA2oy6y7e0Aai35YM2djCpCMZ6iHVyaWqqBaBNUkovJZkfHmRlcYbIrZRgd+Png==
@@ -16,7 +16,7 @@
     socket.io-client "^2.2.0"
     uws "10.148.1"
 
-"@adamite/sdk@^0.1.0":
+"@adamite/sdk@^0.1.0-beta.0":
   version "0.1.0-beta.0"
   resolved "https://registry.yarnpkg.com/@adamite/sdk/-/sdk-0.1.0-beta.0.tgz#a85f893ba576983946ed924eafbed562432a480a"
   integrity sha512-ZCX3mBCwY2MYvN//+h7EVR8ecMV34gQLBhcOciQhvKB/Svi8nv2rcDz6WDkf4iCl4m5by8mNrjjQdAHtRKdc1g==
@@ -3588,9 +3588,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.247:
-  version "1.3.270"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.270.tgz#a3faa2c51f73bf7a020370b3e28a99b32eae47ed"
-  integrity sha512-426qbfgLn0hVE4pDxok2dcAhA3u5lwXlBg2+i6VWQJvnMZNgevkC6s/qr91YH/avVMKXKwxnR5iBznpivg210A==
+  version "1.3.271"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.271.tgz#b80899cb03dab6437a1fb909abb6a722440a3215"
+  integrity sha512-c+bEenRFLQrK9tKM7xycKx1aOt6TiLoOujV2LXf1K9zm4kWSMY7BRDBezw2QcYCD0mMwtmbZdhyz9gamRq1J+Q==
 
 elliptic@^6.0.0:
   version "6.5.1"
