@@ -11,7 +11,7 @@
     "dayjs": "^1.8.14",
     "jsoneditor": "^5.33.0",
     "jsoneditor-react": "^1.0.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "normalize.css": "^8.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
